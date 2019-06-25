@@ -1,0 +1,2 @@
+# @vestibule-link/iot-types
+* Shared iot types for vestibule ![Build Status](https://codebuild.us-east-1.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoiYlM4RmJYeE5Tb3QrYnIxNzVqU1NvS0RTbDRLTW5kUzBlVktrTE5WWWdTNDNrM2JCOVh6SXdGcjd4NkJTVXQ1N3RSVkVVR3JXTWRsTUIxSm1tZkRMdm1vPSIsIml2UGFyYW1ldGVyU3BlYyI6Imt4SUNvL2RvblN3aFVTRGciLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=master)
