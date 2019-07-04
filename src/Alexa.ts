@@ -90,15 +90,13 @@ export interface Shadow {
     state?: {
         desired?: {
             endpoints?: Providers<'alexa'>,
-            [key: string]: any
         },
         reported?: {
             endpoints?: Providers<'alexa'>,
             connected?: boolean,
-            [key: string]: any
         },
         delta?: {
-            [key: string]: any
+            endpoints?: Providers<'alexa'>,
         }
     }
     metadata?: {

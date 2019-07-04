@@ -1,6 +1,6 @@
 {
   "name": "@vestibule-link/iot-types",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
@@ -17,7 +17,7 @@
     "type": "git"
   },
   "dependencies": {
-    "@vestibule-link/alexa-video-skill-types": "^1.0.0"
+    "@vestibule-link/alexa-video-skill-types": "^1.1.0"
   },
   "devDependencies": {
     "typescript": "^3.5.2"
