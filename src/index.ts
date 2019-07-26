@@ -4,7 +4,7 @@ export * from './Alexa';
 
 export type AssistantType = 'alexa'
 
-interface Message<T> {
+export interface Message<T> {
     payload: T;
 }
 
@@ -17,10 +17,6 @@ export interface RequestMessage<T> extends Message<T> {
         sync?: string,
         async?: string
     }
-}
-
-export interface ResponseMessage<T> extends Message<T> {
-    error: boolean;
 }
 
 

@@ -1,4 +1,4 @@
-import { generateEndpointId, LocalEndpoint, Providers } from ".";
+import { generateEndpointId, LocalEndpoint, Providers, Message } from ".";
 import { Alexa, Discovery, Directive, Event } from "@vestibule-link/alexa-video-skill-types";
 
 export function getShadowEndpoint(shadow: Shadow, le?: LocalEndpoint): AlexaEndpoint | undefined {
@@ -188,4 +188,9 @@ export type DirectiveErrorResponse = {
     : DNS extends VideoSkills
     ? EventPayload['Alexa.Video']['ErrorResponse'] | EventPayload['Alexa']['ErrorResponse']
     : EventPayload['Alexa']['ErrorResponse']
+}
+
+export interface ResponseMessage<T> extends Message<T> {
+    error: boolean;
+    stateChange?: EndpointState
 }
