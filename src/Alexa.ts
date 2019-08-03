@@ -1,5 +1,5 @@
 import { generateEndpointId, LocalEndpoint, Providers, Message } from ".";
-import { Alexa, Discovery, Directive, Event } from "@vestibule-link/alexa-video-skill-types";
+import { Alexa, Discovery, Directive, Event, VideoRecorder } from "@vestibule-link/alexa-video-skill-types";
 
 export function getShadowEndpoint(shadow: Shadow, le?: LocalEndpoint): AlexaEndpoint | undefined {
     if (le && shadow.state && shadow.state.reported) {
@@ -142,7 +142,18 @@ type EventPayload = {
             context?: Alexa.Context
         }
         : Event.NamedMessage[ENS][EN] extends { event: { payload: any } }
+        ? Event.NamedMessage[ENS][EN] extends { event: { payload: any, header: { namespace: 'Alexa.VideoRecorder' } } }
         ? {
+            namespace: ENS
+            name: EN
+            payload: Event.NamedMessage[ENS][EN]['event']['payload']
+            context?: {
+                properties: {
+                    [CN in keyof Alexa.NamedContext['Alexa.VideoRecorder']]: Alexa.NamedContext['Alexa.VideoRecorder'][CN]
+                }[keyof Alexa.NamedContext['Alexa.VideoRecorder']][]
+            }
+        }
+        : {
             namespace: ENS
             name: EN
             payload: Event.NamedMessage[ENS][EN]['event']['payload']
