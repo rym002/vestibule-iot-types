@@ -19,6 +19,6 @@
     "@vestibule-link/alexa-video-skill-types": "^1.1.1"
   },
   "devDependencies": {
-    "typescript": "^3.5.3"
+    "typescript": "^3.6.4"
   }
 }
