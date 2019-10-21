@@ -1,5 +1,5 @@
-import { generateEndpointId, LocalEndpoint, Providers, Message } from ".";
-import { Alexa, Discovery, Directive, Event, VideoRecorder } from "@vestibule-link/alexa-video-skill-types";
+import { Alexa, Directive, Discovery, Event } from "@vestibule-link/alexa-video-skill-types";
+import { generateEndpointId, LocalEndpoint, Message, Providers } from ".";
 
 export function getShadowEndpoint(shadow: Shadow, le?: LocalEndpoint): AlexaEndpoint | undefined {
     if (le && shadow.state && shadow.state.reported) {
@@ -23,15 +23,14 @@ export function getShadowEndpointMetadata(shadow: Shadow, le?: LocalEndpoint): E
     return undefined
 }
 
-export interface AlexaEndpoint {
-    states?: EndpointState;
-    capabilities?: EndpointCapability;
-    info?: EndpointInfo;
+export interface AlexaEndpoint extends EndpointState {
+
 }
 
-export interface EndpointMetadata {
-    states?: EndpointStateMetadata
+export interface EndpointMetadata extends EndpointStateMetadata {
+
 }
+
 export type EndpointStateMetadata = Partial<{
     [NS in Alexa.ContextInterfaces]:
     {
@@ -101,7 +100,7 @@ export interface Shadow {
     }
     metadata?: {
         desired?: {
-            [key: string]: ShadowMetadata
+            endpoints?: ProvidersMetadata
         },
         reported?: {
             endpoints?: ProvidersMetadata
