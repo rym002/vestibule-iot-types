@@ -28,6 +28,8 @@ export interface LocalEndpoint {
 export const topicConfig = {
     root: 'vestibule-bridge/',
     directive: '/alexa/directive/',
+    info: '/alexa/info/',
+    capabilities: '/alexa/capabilities/'
 }
 
 export interface AssistantEndpoint {
