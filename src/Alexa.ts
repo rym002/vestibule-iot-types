@@ -49,6 +49,8 @@ export type EndpointCapability = Partial<{
     [NS in keyof Discovery.NamedCapabilities]:
     Discovery.NamedCapabilities[NS] extends { supportedOperations: any }
     ? Discovery.NamedCapabilities[NS]['supportedOperations']
+    : Discovery.NamedCapabilities[NS] extends { keys: any }
+    ? Discovery.NamedCapabilities[NS]['keys']
     : Discovery.NamedCapabilities[NS] extends { configuration: { MACAddresses: string[] } }
     ? Discovery.NamedCapabilities[NS]['configuration']['MACAddresses']
     : Discovery.NamedCapabilities[NS] extends { properties: { supported: { name: any }[] } }
