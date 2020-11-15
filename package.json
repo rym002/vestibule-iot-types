@@ -16,9 +16,9 @@
     "type": "git"
   },
   "dependencies": {
-    "@vestibule-link/alexa-video-skill-types": "^1.1.4"
+    "@vestibule-link/alexa-video-skill-types": "^1.3.0"
   },
   "devDependencies": {
-    "typescript": "^3.7.2"
+    "typescript": "^3.9.7"
   }
 }
