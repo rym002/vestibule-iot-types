@@ -1,49 +1,23 @@
 import { Alexa, Directive, Discovery, Event } from "@vestibule-link/alexa-video-skill-types";
-import { generateEndpointId, LocalEndpoint, Message, Providers } from ".";
+import { Message } from ".";
 
-export function getShadowEndpoint(shadow: Shadow, le?: LocalEndpoint): AlexaEndpoint | undefined {
-    if (le && shadow.state && shadow.state.reported) {
-        const providers = shadow.state.reported.endpoints
-        if (providers) {
-            const endpointId = generateEndpointId(le);
-            return providers[endpointId];
-        }
-    }
-    return undefined
-}
-
-export function getShadowEndpointMetadata(shadow: Shadow, le?: LocalEndpoint): EndpointMetadata | undefined {
-    if (le && shadow.metadata && shadow.metadata.reported) {
-        const providers = shadow.metadata.reported.endpoints
-        if (providers) {
-            const endpointId = generateEndpointId(le);
-            return providers[endpointId];
-        }
-    }
-    return undefined
-}
 
 export interface AlexaEndpoint extends EndpointState {
 
 }
 
-export interface EndpointMetadata extends EndpointStateMetadata {
-
+type Metadata = {
+    timestamp: number
 }
 
-export type EndpointStateMetadata = Partial<{
-    [NS in Alexa.ContextInterfaces]:
-    {
-        [N in keyof Alexa.NamedContext[NS]]:
-        Alexa.NamedContext[NS][N] extends { value: any }
-        ? Alexa.NamedContext[NS][N] extends { value: string | number | boolean }
-        ? ShadowMetadata
-        : {
-            [K in keyof Alexa.NamedContext[NS][N]['value']]: ShadowMetadata
-        }
-        : never
+type ShadowMetadata<T> =
+    T extends string | number | boolean | symbol
+    ? Metadata
+    : T extends string[] | number[] | boolean[] | symbol[]
+    ? Metadata[]
+    : {
+        [K in keyof T]: ShadowMetadata<T[K]>
     }
-}>
 
 export type EndpointCapability = Partial<{
     [NS in keyof Discovery.NamedCapabilities]:
@@ -74,50 +48,19 @@ export type EndpointState = Partial<{
     }[keyof Alexa.NamedContext[NS]]
 }>
 
-
-export interface DeltaShadow {
+interface ShadowState<T> {
+    desired?: T,
+    reported?: T,
+    delta?: T
+}
+export interface Shadow<T> {
     timestamp?: Date,
     clientToken?: string,
     version?: number,
-    state: {
-        endpoints?: Providers<'alexa'>
-    }
+    state?: ShadowState<T>
+    metadata?: ShadowMetadata<ShadowState<T>>
 }
 
-export interface Shadow {
-    timestamp?: Date,
-    clientToken?: string,
-    version?: number,
-    state?: {
-        desired?: {
-            endpoints?: Providers<'alexa'>,
-        },
-        reported?: {
-            endpoints?: Providers<'alexa'>,
-            connected?: boolean,
-        },
-        delta?: {
-            endpoints?: Providers<'alexa'>,
-        }
-    }
-    metadata?: {
-        desired?: {
-            endpoints?: ProvidersMetadata
-        },
-        reported?: {
-            endpoints?: ProvidersMetadata
-        }
-    }
-}
-
-
-export interface ShadowMetadata {
-    timestamp: number
-}
-
-export interface ProvidersMetadata {
-    [key: string]: EndpointMetadata;
-}
 
 
 export type ErrorHolder = {
