@@ -19,14 +19,8 @@ export interface RequestMessage<T> extends Message<T> {
     }
 }
 
-const topicConfig = {
-    root: 'vestibule-bridge/',
-    endpoint: '/endpoint/'
-}
-
-
 export function endpointTopicPrefix(clientId:string, assistant:AssistantType, endpointId:string){
-    return topicConfig.root + assistant + topicConfig.endpoint + endpointId
+    return `vestibule-bridge/${clientId}/${assistant}/endpoint/${endpointId}/`
 }
 
 export interface AssistantEndpoint {
