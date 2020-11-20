@@ -19,12 +19,6 @@ export interface RequestMessage<T> extends Message<T> {
     }
 }
 
-
-export interface LocalEndpoint {
-    provider: string;
-    host: string
-}
-
 export const topicConfig = {
     root: 'vestibule-bridge/',
     directive: '/alexa/directive/',
@@ -37,24 +31,5 @@ export interface AssistantEndpoint {
 export interface Providers<A extends AssistantType> {
     [key: string]: SubType<AssistantEndpoint, A>;
 }
-
-export function generateEndpointId(le: LocalEndpoint): string {
-    const deviceId = le.provider + "@" + le.host;
-    return deviceId;
-}
-
-export function generateTopic(le: LocalEndpoint): string {
-    const deviceId = le.provider + "/" + le.host;
-    return deviceId;
-}
-
-export function toLocalEndpoint(endpointId: string): LocalEndpoint {
-    const parts = endpointId.split('@');
-    return {
-        provider: parts[0],
-        host: parts[1]
-    };
-}
-
 
 export type SubType<T, K extends keyof T> = T[K]
