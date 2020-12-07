@@ -6,11 +6,11 @@ export interface AlexaEndpoint extends EndpointState {
 
 }
 
-type Metadata = {
+export type Metadata = {
     timestamp: number
 }
 
-type ShadowMetadata<T> =
+export type ShadowMetadata<T> =
     T extends string | number | boolean | symbol
     ? Metadata
     : T extends string[] | number[] | boolean[] | symbol[]
@@ -48,7 +48,7 @@ export type EndpointState = Partial<{
     }[keyof Alexa.NamedContext[NS]]
 }>
 
-interface ShadowState<T> {
+export interface ShadowState<T> {
     desired?: T,
     reported?: T,
     delta?: T
